@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/proyecto")
+@RequestMapping("/project")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProyectoController {
     
@@ -34,6 +35,7 @@ public class ProyectoController {
     }
     
     //Crea una nueva proyecto
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody DTOProyecto dtoProyecto){
         if(StringUtils.isBlank(dtoProyecto.getNombreProyecto())){
@@ -52,8 +54,9 @@ public class ProyectoController {
     
     
     //Modificar Proyecto
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{idProyecto}")
-    public ResponseEntity<?> update(@PathVariable("idProy") Long idProyecto, @RequestBody DTOProyecto dtoProyecto){
+    public ResponseEntity<?> update(@PathVariable("idProyecto") Long idProyecto, @RequestBody DTOProyecto dtoProyecto){
         //Verificamos que exista la xp
         if (!impProyServ.existsById(idProyecto)) {
             return new ResponseEntity("La proyecto solicitada no existe", HttpStatus.BAD_REQUEST);
@@ -78,11 +81,12 @@ public class ProyectoController {
     }
     
     //Borrar Proyecto
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{idProyecto}")
     public ResponseEntity<?> delete(@PathVariable("idProyecto") Long idProyecto){
         //Validamos que el id existe
         if(!impProyServ.existsById(idProyecto)){
-            return new ResponseEntity("La proyecto solicitada no existe", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("El proyecto solicitada no existe", HttpStatus.BAD_REQUEST);
         }
         
         impProyServ.delete(idProyecto);

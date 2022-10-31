@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class EducacionController {
     }
     
     //Crea una nueva educacion
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody DTOEducacion dtoEdu){
         if(StringUtils.isBlank(dtoEdu.getNombreEdu())){
@@ -52,6 +54,7 @@ public class EducacionController {
     
     
     //Modificar Educacion
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{idEducacion}")
     public ResponseEntity<?> update(@PathVariable("idEducacion") Long idEducacion, @RequestBody DTOEducacion dtoEdu){
         //Verificamos que exista la edu
@@ -78,6 +81,7 @@ public class EducacionController {
     }
     
     //Borrar Educacion
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{idEducacion}")
     public ResponseEntity<?> delete(@PathVariable("idEducacion") Long idEducacion){
         //Validamos que el id existe

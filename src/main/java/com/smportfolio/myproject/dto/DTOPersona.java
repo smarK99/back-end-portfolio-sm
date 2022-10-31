@@ -17,7 +17,10 @@ public class DTOPersona {
     private String city;
     
     @NotBlank
-    private String img;
+    private String imgProfile;
+    
+    @NotBlank
+    private String imgBanner;
     
     @NotBlank
     private String email;
@@ -30,12 +33,13 @@ public class DTOPersona {
     
     }
     
-    public DTOPersona(String name, String surname, String title, String city, String img, String email, String aboutme) {
+    public DTOPersona(String name, String surname, String title, String city, String imgProfile, String imgBanner, String email, String aboutme) {
         this.name = name;
         this.surname = surname;
         this.title = title;
         this.city = city;
-        this.img = img;
+        this.imgProfile = imgProfile;
+        this.imgBanner = imgBanner;
         this.email = email;
         this.aboutme = aboutme;
     }
@@ -72,14 +76,22 @@ public class DTOPersona {
         this.city = city;
     }
 
-    public String getImg() {
-        return img;
+    public String getImgProfile() {
+        return imgProfile;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImgProfile(String imgProfile) {
+        this.imgProfile = imgProfile;
     }
 
+    public String getImgBanner() {
+        return imgBanner;
+    }
+
+    public void setImgBanner(String imgBanner) {
+        this.imgBanner = imgBanner;
+    }
+    
     public String getEmail() {
         return email;
     }

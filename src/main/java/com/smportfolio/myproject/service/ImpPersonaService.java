@@ -42,27 +42,5 @@ public class ImpPersonaService{
     public boolean existsByName(String name){
         return iPersonaRep.existsByName(name);
     }
-     
-    
-    /*
-    @Override
-    public List<Persona> getListPersonas() {
-        return (List<Persona>) iPersonaRep.findAll();
-    }
-
-    @Override
-    public void savePersona(Persona persona) {
-        iPersonaRep.save(persona);
-    }
-
-    @Override
-    public void deletePersonaById(Long idpersona) {
-        iPersonaRep.deleteById(idpersona);
-    }
-
-    @Override
-    public Persona findPersonaById(Long idpersona) {
-      return iPersonaRep.findById(idpersona).orElse(null);   
-    }
-    */
+   
 }

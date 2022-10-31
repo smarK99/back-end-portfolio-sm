@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class ExperienciaController {
     }
     
     //Crea una nueva experiencia
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody DTOExperiencia dtoExp){
         if(StringUtils.isBlank(dtoExp.getNombreExp())){
@@ -52,6 +54,7 @@ public class ExperienciaController {
     
     
     //Modificar Experiencia
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{idExp}")
     public ResponseEntity<?> update(@PathVariable("idExp") Long idExp, @RequestBody DTOExperiencia dtoExp){
         //Verificamos que exista la xp
@@ -78,6 +81,7 @@ public class ExperienciaController {
     }
     
     //Borrar Experiencia
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{idExp}")
     public ResponseEntity<?> delete(@PathVariable("idExp") Long idExp){
         //Validamos que el id existe

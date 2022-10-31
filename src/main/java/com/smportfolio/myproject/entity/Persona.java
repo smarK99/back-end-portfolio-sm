@@ -34,7 +34,9 @@ public class Persona implements Serializable {
     @Size(min = 1, max = 20, message = "Error")
     private String city;
     
-    private String img;
+    private String imgProfile;
+    
+    private String imgBanner;
     
     @NotEmpty
     @Email
@@ -49,12 +51,13 @@ public class Persona implements Serializable {
         
     }
     
-    public Persona(String name, String surname, String title, String city, String img, String email, String aboutme) {
+    public Persona(String name, String surname, String title, String city, String imgProfile, String imgBanner, String email, String aboutme) {
         this.name = name;
         this.surname = surname;
         this.title = title;
         this.city = city;
-        this.img = img;
+        this.imgProfile = imgProfile;
+        this.imgBanner = imgBanner;
         this.email = email;
         this.aboutme = aboutme;
     }

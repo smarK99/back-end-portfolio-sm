@@ -20,11 +20,6 @@ public class PersonaController {
     @Autowired
     private ImpPersonaService impPersonaServ;
     
-    @GetMapping
-    public String inicio(){
-        return "Hola Portfolio";
-    }
-    
     //Trae todas las personas
     @GetMapping("/list")
     public ResponseEntity<List<Persona>> list(){
@@ -45,7 +40,7 @@ public class PersonaController {
         }
         
         //Si no hay ningun problema, se crea la persona
-        Persona persona = new Persona(dtoPersona.getName(), dtoPersona.getSurname(), dtoPersona.getTitle(), dtoPersona.getCity(), dtoPersona.getImg(), dtoPersona.getEmail(), dtoPersona.getAboutme());
+        Persona persona = new Persona(dtoPersona.getName(), dtoPersona.getSurname(), dtoPersona.getTitle(), dtoPersona.getCity(), dtoPersona.getImgProfile(), dtoPersona.getImgBanner(), dtoPersona.getEmail(), dtoPersona.getAboutme());
         impPersonaServ.save(persona);
         return new ResponseEntity("Persona agregada exitosamente", HttpStatus.OK);
         
@@ -76,8 +71,10 @@ public class PersonaController {
         persona.setSurname(dtoPersona.getSurname());
         persona.setTitle(dtoPersona.getTitle());
         persona.setCity(dtoPersona.getCity());
-        persona.setImg(dtoPersona.getImg());
+        persona.setImgProfile(dtoPersona.getImgProfile());
+        persona.setImgBanner(dtoPersona.getImgBanner());
         persona.setEmail(dtoPersona.getEmail());
+        persona.setAboutme(dtoPersona.getAboutme());
         
         impPersonaServ.save(persona);
         
@@ -99,7 +96,6 @@ public class PersonaController {
     }
     
     //Detail
-    //No se que hacia este metodo ????
     @GetMapping("/detail/{idPersona}")
     public ResponseEntity<Persona> getById(@PathVariable("idPersona") Long idPersona){
         if(!impPersonaServ.existsById(idPersona)){
@@ -111,53 +107,4 @@ public class PersonaController {
         return new ResponseEntity(persona, HttpStatus.OK);
     }
     
-    /*
-    @GetMapping("/personas/traer/perfil")
-    public Optional<Persona> findPersona(){
-        return impPersonaServ.getOne((long)1);
-    }
-    
-    @GetMapping("/personas/traer")
-    public List<Persona> getPersonasList(){
-        return impPersonaServ.List();
-    }
-    
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/personas/crear")
-    public String createPersona(@RequestBody Persona persona){
-        impPersonaServ.save(persona);
-        return "La persona fue creada correctamente";
-    }
-    
-    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/personas/borrar/{idpersona}")
-    public String deletePersona(@PathVariable Long idpersona){
-        impPersonaServ.delete(idpersona);
-        return "La persona fue borrada exitosamente";
-    }
-    
-    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/personas/editar/{id}")
-    public Persona editPersona(@PathVariable Long idpersona,
-                               @RequestParam("name") String newName,
-                               @RequestParam("surname") String newSurname,
-                               @RequestParam("title") String newTitle,
-                               @RequestParam("city") String newCity,
-                               @RequestParam("img") String newImg,
-                               @RequestParam("email") String newEmail){
-        
-        Optional<Persona> persona = impPersonaServ.getOne(idpersona);
-        
-        persona.setName(newName);
-        persona.setSurname(newSurname);
-        persona.setTitle(newTitle);
-        persona.setCity(newCity);
-        persona.setImg(newImg);
-        persona.setEmail(newEmail);
-        
-        impPersonaServ.save(persona);
-        
-        return persona;
-    }
-    */
 }

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class SkillController {
     }
     
      //Crea una nueva skill
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody DTOSkill dtoSkill){
         if(StringUtils.isBlank(dtoSkill.getNombreSkill())){
@@ -53,6 +55,7 @@ public class SkillController {
     }
     
     //Modificar Skill
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{idSkill}")
     public ResponseEntity<?> update(@PathVariable("idSkill") Long idSkill, @RequestBody DTOSkill dtoSkill){
         //Verificamos que exista la skill
@@ -78,7 +81,8 @@ public class SkillController {
         return new ResponseEntity("Skill actualizada exitosamente", HttpStatus.OK);
     }
     
-    //Borrar Skilleriencia
+    //Borrar Skill
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{idSkill}")
     public ResponseEntity<?> delete(@PathVariable("idSkill") Long idSkill){
         //Validamos que el id existe
